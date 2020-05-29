@@ -30,14 +30,5 @@ While building locally using the Makefile, you may set the environment variable 
 TBD
 beeline -u "jdbc:hive2://localhost:10000/default;auth=noSasl" -n hive -p hive
 
-
-###Credits:
+### Credits:
 Influenced by [BDE](https://github.com/big-data-europe/docker-hive)
-
-##Note on vagrant behind corporate proxy.
-```
-export SSL_CERT_FILE=/etc/ssl/certs/ske-root-ca-2033-03-18.pem
-vagrant plugin update
-#https://github.com/gfi-centre-ouest/vagrant-certificates
-vagrant plugin install vagrant-certificates
-```
