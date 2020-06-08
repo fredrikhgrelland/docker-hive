@@ -11,4 +11,8 @@ endif
 build: custom_ca
 	docker build . -t local/hive:$(branch)
 	docker tag  local/hive:$(branch) local/hive:latest
+up:
+	vagrant up --provision
+down:
+	vagrant destroy
 
