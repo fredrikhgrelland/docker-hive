@@ -2,7 +2,7 @@
 - name: Minio healthchecks pass
   uri:
     #    curl -G -v localhost:8500/v1/health/checks/minio --data-urlencode 'filter=(Status=="passing")'
-    url: http://localhost:8500/v1/health/checks/minio?filter=%28Status%3D%3D%22passing%22%29
+    url: http://localhost:8500/v1/health/checks/minio?filter={{ '(Status=="passing")' | urlencode }}
     method: GET
     return_content: yes
     status_code: 200
@@ -18,7 +18,7 @@
 - name: Hive-database healthchecks pass
   uri:
     #    curl -G -v localhost:8500/v1/health/checks/hive-database --data-urlencode 'filter=(Status=="passing")'
-    url: http://localhost:8500/v1/health/checks/hive-database?filter=%28Status%3D%3D%22passing%22%29
+    url: http://localhost:8500/v1/health/checks/hive-database?filter={{ '(Status=="passing")' | urlencode }}
     method: GET
     return_content: yes
     status_code: 200
@@ -33,7 +33,7 @@
 - name: Hive-metastore healthchecks pass
   uri:
     #    curl -G -v localhost:8500/v1/health/checks/hive-metastore --data-urlencode 'filter=(Status=="passing")'
-    url: http://localhost:8500/v1/health/checks/hive-metastore?filter=%28Status%3D%3D%22passing%22%29
+    url: http://localhost:8500/v1/health/checks/hive-metastore?filter={{ '(Status=="passing")' | urlencode }}
     method: GET
     return_content: yes
     status_code: 200
@@ -48,7 +48,7 @@
 - name: Hive-server healthchecks pass
   uri:
     #    curl -G -v localhost:8500/v1/health/checks/hive-server --data-urlencode 'filter=(Status=="passing")'
-    url: http://localhost:8500/v1/health/checks/hive-server?filter=%28Status%3D%3D%22passing%22%29
+    url: http://localhost:8500/v1/health/checks/hive-server?filter={{ '(Status=="passing")' | urlencode }}
     method: GET
     return_content: yes
     status_code: 200
