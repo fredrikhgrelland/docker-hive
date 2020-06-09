@@ -2,7 +2,7 @@ branch = $(shell git rev-parse --abbrev-ref HEAD)
 export SSL_CERT_FILE = /etc/ssl/certs/ca-certificates.crt
 export CURL_CA_BUNDLE = /etc/ssl/certs/ca-certificates.crt
 
-.ONESHELL .PHONY: build up
+.ONESHELL .PHONY: build up down test
 .DEFAULT_GOAL := build
 
 custom_ca:
@@ -17,4 +17,6 @@ up:
 	vagrant up
 down:
 	vagrant destroy
+test:
+	ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision
 
