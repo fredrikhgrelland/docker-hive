@@ -24,6 +24,28 @@ job "hive" {
       }
     }
 
+    task "waitfor-hive-metastore" {
+      lifecycle {
+        hook = "prestart"
+      }
+      driver = "docker"
+      resources {
+        memory = 32
+      }
+      config {
+        image = "consul:latest"
+        entrypoint = ["/bin/sh"]
+        args = ["-c", "jq </local/service.json -e '.[].Status|select(. == \"passing\")'"]
+        volumes = ["tmp/service.json:/local/service.json" ]
+      }
+      template {
+        destination = "tmp/service.json"
+        data = <<EOH
+          {{- service "hive-metastore" | toJSON -}}
+        EOH
+      }
+    }
+
     service {
       name = "hive-server"
       port = 10000
@@ -162,6 +184,28 @@ EOH
 
     network {
       mode = "bridge"
+    }
+
+    task "waitfor-hive-database" {
+      lifecycle {
+        hook = "prestart"
+      }
+      driver = "docker"
+      resources {
+        memory = 32
+      }
+      config {
+        image = "consul:latest"
+        entrypoint = ["/bin/sh"]
+        args = ["-c", "jq </local/service.json -e '.[].Status|select(. == \"passing\")'"]
+        volumes = ["tmp/service.json:/local/service.json" ]
+      }
+      template {
+        destination = "tmp/service.json"
+        data = <<EOH
+          {{- service "hive-database" | toJSON -}}
+        EOH
+      }
     }
 
     task "waitfor-minio-has-required-buckets" {
