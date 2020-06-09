@@ -191,6 +191,10 @@ EOH
     }
 
     task "waitfor-hive-database" {
+        restart {
+            attempts = 5
+            delay    = "15s"
+        }    
       lifecycle {
         hook = "prestart"
       }
