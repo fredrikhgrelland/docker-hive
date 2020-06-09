@@ -15,5 +15,13 @@ Vagrant.configure("2") do |config|
   end
   config.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "./test/playbook.yml"
+
+      # default mode `dev`
+      ansible.extra_vars = {
+        mode: 'dev'
+      }
+
+      # use to override default mode (e.g. test mode)
+      ansible.raw_arguments = Shellwords.shellsplit(ENV['ANSIBLE_ARGS']) if ENV['ANSIBLE_ARGS']
   end
 end
