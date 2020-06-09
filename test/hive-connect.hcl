@@ -25,6 +25,10 @@ job "hive" {
     }
 
     task "waitfor-hive-metastore" {
+        restart {
+            attempts = 10
+            delay    = "15s"
+        }
       lifecycle {
         hook = "prestart"
       }
