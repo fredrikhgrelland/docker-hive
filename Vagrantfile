@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "fredrikhgrelland/hashistack"
   config.vm.network "private_network", ip: "10.0.3.10"
-  config.vn.box_version = "~> 0.0"
+  config.vm.box_version = "~> 0.0"
   config.vm.box_download_insecure = true
 
   # Hashicorp consul ui
