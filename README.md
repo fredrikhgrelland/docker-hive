@@ -1,4 +1,5 @@
 ![Docker](https://github.com/fredrikhgrelland/docker-hive/workflows/Docker/badge.svg)
+![Tests](https://github.com/fredrikhgrelland/docker-hive/workflows/tests/badge.svg)
 # docker-hive
 Docker build for hive 3.1.0 based on [fredrikhgrelland/hadoop](https://github.com/fredrikhgrelland/docker-hadoop).
 
