@@ -1,6 +1,4 @@
 branch = $(shell git rev-parse --abbrev-ref HEAD)
-export SSL_CERT_FILE = /etc/ssl/certs/ca-certificates.crt
-export CURL_CA_BUNDLE = /etc/ssl/certs/ca-certificates.crt
 
 .ONESHELL .PHONY: build up down test
 .DEFAULT_GOAL := build
