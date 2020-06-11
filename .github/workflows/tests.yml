@@ -18,5 +18,5 @@ jobs:
       # Runs make test
       - name: Run make test
         run: |
-          export CURL_CA_BUNDLE=/etc/ssl/certs
+          VAGRANT_DEBUG_LAUNCHER="1" vagrant box add scotch/box
           make test
