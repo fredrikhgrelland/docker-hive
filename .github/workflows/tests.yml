@@ -12,7 +12,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - name: Env
+        run: set
+        
       # Runs make test
       - name: Run make test
         run: make test
