@@ -17,4 +17,6 @@ jobs:
         
       # Runs make test
       - name: Run make test
-        run: make test
+        run: |
+          export CURL_CA_BUNDLE=/etc/ssl/certs
+          make test
