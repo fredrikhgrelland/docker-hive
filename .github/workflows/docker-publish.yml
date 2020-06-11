@@ -27,8 +27,7 @@ jobs:
       
       - name: Check stuffs
         run: |
-          ls -laR /opt/local/etc/openssl/cert.pem
-          ls -la /opt/local/etc/openssl
+          curl -vvv --cacert non_existing_file https://www.google.com
       
       - name: Run tests
         run: |
