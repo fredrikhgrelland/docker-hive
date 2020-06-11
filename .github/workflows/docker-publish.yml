@@ -24,7 +24,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      
+      - name: Check stuffs
+        run: |
+          ls -laR /opt/local/etc/openssl/cert.pem
+          ls -la /opt/local/etc/openssl
+      
       - name: Run tests
         run: |
           if [ -f docker-compose.test.yml ]; then
