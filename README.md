@@ -54,6 +54,9 @@ Stack:
 ![consul-healthchecks](./doc/img/healthchecks.png)
 
 ## Examples cli
+To access hive-server or meta-store in nomad, go to [http://localhost:4646](http://localhost:4646), chose hive job and task:
+![exec-example](./doc/img/exec.png)
+
 hive metastore (connection)
 ```bash
 beeline -u jdbc:hive2://
