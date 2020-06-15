@@ -26,10 +26,48 @@ This image can be built and operated behind a corporate proxy where the base os 
 
 While building locally using the Makefile, you may set the environment variable CUSTOM_CA to a file or directory in order to import them.
 `CUSTOM_CA=/usr/local/share/ca-certificates make`
+## Run locally
+Image could be run locally using vagrant box [fredrikhgrelland/hashistack](https://github.com/fredrikhgrelland/vagrant-hashistack). 
 
-## Examples
-TBD
+Prerequisite is to have [vagrant](https://www.vagrantup.com/)
+
+```
+// usual run
+vagrant up --provision
+
+// test
+ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision
+```
+
+Box runs [HashiCorp products](https://github.com/fredrikhgrelland/vagrant-hashistack#hashistack): Consul, Nomad, Vault, etc...
+
+Hive with required dependencies(database, s3) will be deployed on [Nomad](https://www.nomadproject.io/) as a docker container.
+
+Stack:
+- [MinIO](https://min.io/)
+- [Postgres](https://hub.docker.com/_/postgres)
+- [Hive - metastore mode](https://github.com/fredrikhgrelland/docker-hive/blob/master/bin/hivemetastore)
+- [Hive - server mode](https://github.com/fredrikhgrelland/docker-hive/blob/master/bin/hiveserver)
+
+`NB`: Nomad jobs are configured to run with [consul-connect](https://www.consul.io/docs/connect) integration (data mesh). 
+
+![consul-healthchecks](./doc/img/healthchecks.png)
+
+## Examples cli
+hive metastore (connection)
+```bash
+beeline -u jdbc:hive2://
+```
+hive server (connection)
+```bash
 beeline -u "jdbc:hive2://localhost:10000/default;auth=noSasl" -n hive -p hive
+```
+beeline cli
+```bash
+SHOW DATABASES;
+SHOW TABLES IN <database-name>;
+SELECT * FROM <database-name>.<table-name>;
+```
 
 ### Credits:
 Influenced by [BDE](https://github.com/big-data-europe/docker-hive)
