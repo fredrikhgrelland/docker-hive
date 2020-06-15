@@ -29,14 +29,14 @@ While building locally using the Makefile, you may set the environment variable 
 ## Run locally
 Image could be run locally using vagrant box [fredrikhgrelland/hashistack](https://github.com/fredrikhgrelland/vagrant-hashistack). 
 
-Prerequisite is to have [vagrant](https://www.vagrantup.com/)
+Prerequisite is to have [vagrant](https://www.vagrantup.com/) Prerequisite is to have [vagrant](https://www.vagrantup.com/) and [virtualbox](https://www.virtualbox.org/) 
 
 ```
 // usual run
-vagrant up --provision
+make up
 
 // test
-ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision
+make test
 ```
 
 Box runs [HashiCorp products](https://github.com/fredrikhgrelland/vagrant-hashistack#hashistack): Consul, Nomad, Vault, etc...
@@ -49,7 +49,7 @@ Stack:
 - [Hive - metastore mode](https://github.com/fredrikhgrelland/docker-hive/blob/master/bin/hivemetastore)
 - [Hive - server mode](https://github.com/fredrikhgrelland/docker-hive/blob/master/bin/hiveserver)
 
-`NB`: Nomad jobs are configured to run with [consul-connect](https://www.consul.io/docs/connect) integration (data mesh). 
+`NB`: Nomad jobs are configured to run with [consul-connect](https://www.consul.io/docs/connect) integration (service mesh). 
 
 ![consul-healthchecks](./doc/img/healthchecks.png)
 
