@@ -1,6 +1,6 @@
 branch = $(shell git rev-parse --abbrev-ref HEAD)
 
-.ONESHELL .PHONY: build up down test
+.ONESHELL .PHONY: build up down test prereq
 .DEFAULT_GOAL := build
 
 custom_ca:
@@ -17,4 +17,7 @@ down:
 	vagrant destroy
 test:
 	ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision
+prereq:
+	apt update -y && apt upgrade -y
+	apt -y install virtualbox vagrant
 

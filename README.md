@@ -18,6 +18,11 @@ See Hortonworks ( or cloudera ) compatibility in releasenotes. https://docs.clou
 ## Published images
 - [dockerhub](https://hub.docker.com/r/fredrikhgrelland/hive)
 - [github](https://github.com/fredrikhgrelland/docker-hive/packages)
+## Prerequisites
+Vagrant is uses for local run. You might need to install [virtualbox](https://www.virtualbox.org/) and [vagrant](https://www.vagrantup.com/).
+```bash
+make prereq
+```
 
 ## Build locally for development
 `make build`
