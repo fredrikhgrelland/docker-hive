@@ -8,16 +8,21 @@ ifdef CUSTOM_CA
 	cp -rf $(CUSTOM_CA)/* ca_certificates/ || cp -f $(CUSTOM_CA) ca_certificates/
 endif
 
-build: custom_ca
-	docker build . -t local/hive:$(branch)
-	docker tag  local/hive:$(branch) local/hive:latest
-up:
-	vagrant up
-down:
-	vagrant destroy
-test:
-	ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision
 prereq:
 	apt update -y && apt upgrade -y
 	apt -y install virtualbox vagrant
 
+build: custom_ca
+	docker build . -t local/hive:$(branch)
+	docker tag  local/hive:$(branch) local/hive:latest
+
+dev-mode:
+	$(MAKE) -C ./template/test dev-mode
+
+test:
+	$(MAKE) -C ./template/test test
+
+up: test
+
+down:
+	vagrant destroy -f

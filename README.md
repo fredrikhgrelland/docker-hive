@@ -1,7 +1,7 @@
 ![Docker](https://github.com/fredrikhgrelland/docker-hive/workflows/Docker/badge.svg)
 ![Tests](https://github.com/fredrikhgrelland/docker-hive/workflows/Tests/badge.svg)
 # docker-hive
-Docker build for hive 3.1.0 based on [fredrikhgrelland/hadoop](https://github.com/fredrikhgrelland/docker-hadoop).
+Docker build for hive 3.1.0 based on [fredrikhgrelland/hadoop](https://github.com/fredrikhgrelland/docker-hadoop) and tested with [vagrant-hashistack](https://github.com/fredrikhgrelland/vagrant-hashistack)
 
 This image is built to work with object storage, only.
 Hive metastore requires connection to a postgres database.
@@ -12,7 +12,7 @@ This might work but it is currently missing tez binaries and it will probably be
 and as a HQL-endpoint for NIFI.
 
 ## Note on versions
-Compatiability of hadoop and hive is ensured by using A know working combination.
+Compatiability of hadoop and hive is ensured by using a known working combination.
 See Hortonworks ( or cloudera ) compatibility in releasenotes. https://docs.cloudera.com/HDPDocuments/HDP3/HDP-3.1.0/release-notes/content/comp_versions.html
 
 ## Published images

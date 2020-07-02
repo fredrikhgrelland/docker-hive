@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Terraform
+      terraform:
+        project_path: ../terraform
+        force_init: true
+        state: present
+      register: terraform
+
+    - name: Terraform stdout
+      debug:
+        msg: "{{terraform.stdout}}"
+
+    - name: Test healthchecks of services
+      include_tasks: test.yml
+      # variable mode setup via extra_args in Vagrant.ansible_local or bash -> ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision.
+      # Supported from vagrant-hashistack v.0.2.2
+      #when: mode == "test"
