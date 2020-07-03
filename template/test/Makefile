@@ -6,7 +6,7 @@ dev-mode:
 
 test:
 	vagrant destroy -f
-	ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision
+	vagrant up --provision
 
 clean:
 	vagrant destroy -f

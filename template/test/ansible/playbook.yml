@@ -15,6 +15,3 @@
 
     - name: Test healthchecks of services
       include_tasks: test.yml
-      # variable mode setup via extra_args in Vagrant.ansible_local or bash -> ANSIBLE_ARGS='--extra-vars "mode=test"' vagrant up --provision.
-      # Supported from vagrant-hashistack v.0.2.2
-      #when: mode == "test"
