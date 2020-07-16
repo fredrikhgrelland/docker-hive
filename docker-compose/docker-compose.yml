@@ -1,0 +1,36 @@
+version: "3"
+services:
+
+  minio:
+    container_name: minio
+    image: minio/minio:RELEASE.2020-07-14T19-14-30Z-ppc64le
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /local/data # -address 127.0.0.1:9000
+
+  database:
+    container_name: database
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: hive
+      POSTGRES_PASSWORD: hive
+      POSTGRES_DB: metastore
+
+  hive-metastore:
+    container_name: hive-metastore
+    build:
+      dockerfile: Dockerfile
+      context: ..
+    image: hive:lastbuild
+    ports:
+      - 9083:9083
+    volumes:
+      - "./query:/tmp/query"
+    env_file:
+      - ./hive.env
+    command: hivemetastore
