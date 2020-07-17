@@ -1,0 +1,67 @@
+version: "3"
+services:
+
+  minio:
+    container_name: minio
+    image: minio/minio:RELEASE.2020-07-14T19-14-30Z-ppc64le
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /local/data # -address 127.0.0.1:9000
+
+  database:
+    container_name: database
+    image: postgres:12-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: hive
+      POSTGRES_PASSWORD: hive
+      POSTGRES_DB: metastore
+
+  hive-metastore:
+    container_name: hive-metastore
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile
+      context: ..
+    image: hive:lastbuild
+    ports:
+      - 9083:9083
+    volumes:
+      - "./query:/tmp/query"
+    env_file:
+      - ./hive.env
+    command: hivemetastore
+    depends_on:
+      - database
+      - minio
+
+  hive-server:
+    container_name: hive-server
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile
+      context: ..
+    ports:
+      - 10000:10000
+    env_file:
+      - ./hive.env
+    environment:
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+      HIVE_SITE_CONF_hive_metastore_uris: "thrift://hive-metastore:9083"
+      # https://stackoverflow.com/a/53336873
+      HIVE_SITE_CONF_hive_server2_active_passive_ha_enable: "true"
+    depends_on:
+      - hive-metastore
+      - database
+      - minio
+
+# important to have external network, without `_` underscore symbol, otherwise hive-server will fail
+# See Readme.md -> ## Notes
+networks:
+  default:
+    external:
+      name: hive-test
