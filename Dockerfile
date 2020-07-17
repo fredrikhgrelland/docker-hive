@@ -27,7 +27,7 @@ RUN \
     && curl -s -L $HIVE_DOWNLOAD | tar -xz --transform s/apache-hive-$HIVE_VERSION-bin/hive/ -C /opt/ \
     #Download postgres jdbc driver
     && curl -s -L https://jdbc.postgresql.org/download/postgresql-$POSTGRES_JDBC_VERSION.jar -o $HIVE_HOME/lib/postgresql-jdbc.jar \
-    #Downliad json serializer/deserializer
+    #Download json serializer/deserializer
     #https://stackoverflow.com/questions/26644351/cannot-validate-serde-org-openx-data-jsonserde-jsonserde
     && curl -s -L http://www.congiu.net/hive-json-serde/1.3.8/cdh5/json-serde-1.3.8-jar-with-dependencies.jar -o $HIVE_HOME/lib/json-serde-1.3.8-jar-with-dependencies.jar \
     && mkdir -p $HIVE_HOME/extlib \
