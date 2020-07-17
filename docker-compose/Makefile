@@ -1,7 +1,10 @@
 .ONESHELL .PHONY: force-build persistence create-buckets upload-data wait15
 .DEFAULT_GOAL := up
 
-up: force-build persistence wait15 create-buckets upload-data hive
+up: force-build create-docker-network persistence wait15 create-buckets upload-data hive
+
+create-docker-network:
+	docker network create -d bridge hive-test || docker network ls | grep hive-test
 force-build:
 	docker-compose build
 down:
@@ -20,7 +23,7 @@ upload-data:
 		&& mc cp data/json1.json myminio/hive/warehouse/json1/json1.json || exit 1 \
 		&& mc cp data/json2.json myminio/hive/warehouse/json2/json2.json || exit 1
 hive:
-	docker-compose up -d hive-metastore
+	docker-compose up -d hive-metastore hive-server
 
 create-hive-tables:
 	docker-compose exec hive-metastore beeline -u jdbc:hive2:// -f /tmp/query/create-iris.csv.hql

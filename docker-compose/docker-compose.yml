@@ -23,6 +23,7 @@ services:
 
   hive-metastore:
     container_name: hive-metastore
+    restart: on-failure
     build:
       dockerfile: Dockerfile
       context: ..
@@ -34,3 +35,33 @@ services:
     env_file:
       - ./hive.env
     command: hivemetastore
+    depends_on:
+      - database
+      - minio
+
+  hive-server:
+    container_name: hive-server
+    restart: on-failure
+    build:
+      dockerfile: Dockerfile
+      context: ..
+    ports:
+      - 10000:10000
+    env_file:
+      - ./hive.env
+    environment:
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+      HIVE_SITE_CONF_hive_metastore_uris: "thrift://hive-metastore:9083"
+      # https://stackoverflow.com/a/53336873
+      HIVE_SITE_CONF_hive_server2_active_passive_ha_enable: "true"
+    depends_on:
+      - hive-metastore
+      - database
+      - minio
+
+# important to have external network, without `_` underscore symbol, otherwise hive-server will fail
+# See Readme.md -> ## Notes
+networks:
+  default:
+    external:
+      name: hive-test

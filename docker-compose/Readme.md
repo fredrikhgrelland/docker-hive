@@ -10,7 +10,7 @@ Provided examples for development purposes
 make up
 
 # create-tables in hive
-make create-tables
+make create-hive-tables
 
 # down 
 make down
@@ -30,7 +30,7 @@ DROP DATABASE <database-name>;
 beeline -u jdbc:hive2://
     
 # from hive-server (to metastore)
-beeline -u "jdbc:hive2://localhost:10000/default;auth=noSasl" -n hive -p hive  
+beeline -u "jdbc:hive2://localhost:10000/default;auth=noSasl" -n hive -p hive
 
 # exec script from file (example)
 beeline -u jdbc:hive2:// -f /tmp/create-table.hql
@@ -67,3 +67,13 @@ CREATE External TABLE my_table2 (
 )
 ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe' location 's3a://hive/warehouse/json2/';
 ```
+
+## Notes
+### External docker network
+You have to create external docker network. If not, docker-compose will automatically create one with underscore symbol, which will trigger `java.net.URISyntaxException` on hive-server.
+If the exception occurs, hive-server logs contain: 
+```text
+Caused by: org.apache.hadoop.hive.metastore.api.MetaException: Got exception: java.net.URISyntaxException Illegal character in hostname at index 38: thrift://hive-metastore.docker-compose_default:9083
+```
+
+`!NB`: Network creation is part of `make up` command.
