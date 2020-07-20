@@ -104,7 +104,7 @@ job "hive" {
       driver = "docker"
 
       config {
-        image = "fredrikhgrelland/hive:3.1.0"
+        image = "fredrikhgrelland/hive:test"
         command = "hiveserver"
       }
 
@@ -246,7 +246,7 @@ EOH
       driver = "docker"
 
       config {
-        image = "fredrikhgrelland/hive:3.1.0"
+        image = "fredrikhgrelland/hive:test"
         command = "hivemetastore"
       }
 
