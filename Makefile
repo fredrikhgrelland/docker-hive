@@ -15,7 +15,6 @@ prereq:
 build:
 	docker build . -t fredrikhgrelland/hive:${LAST_COMMIT_HASH}
 	docker tag fredrikhgrelland/hive:${LAST_COMMIT_HASH} fredrikhgrelland/hive:test
-	docker tag fredrikhgrelland/hive:${LAST_COMMIT_HASH} fredrikhgrelland/hive:latest
 
 dev-mode:
 	$(MAKE) -C ./template/test dev-mode
