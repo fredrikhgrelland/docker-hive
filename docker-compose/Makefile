@@ -5,8 +5,9 @@ up: force-build create-docker-network persistence wait15 create-buckets upload-d
 
 create-docker-network:
 	docker network create -d bridge hive-test || docker network ls | grep hive-test
+# Enforce docker build with tag of last commit's hash in current branch
 force-build:
-	docker-compose build
+	LAST_COMMIT_HASH=$(shell git rev-parse --verify HEAD) docker-compose build
 down:
 	docker-compose down
 persistence:

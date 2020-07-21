@@ -2,6 +2,16 @@
 - hosts: all
   become: yes
   tasks:
+    - name: Build docker image
+      make:
+        chdir: /home/vagrant
+        target: build
+      register: docker_build
+
+    - name: Docker build stdout
+      debug:
+        msg: "{{docker_build.stdout}}"
+
     - name: Terraform
       terraform:
         project_path: ../terraform

@@ -24,10 +24,10 @@ services:
   hive-metastore:
     container_name: hive-metastore
     restart: on-failure
+    image: fredrikhgrelland/hive:${LAST_COMMIT_HASH}
     build:
       dockerfile: Dockerfile
       context: ..
-    image: hive:lastbuild
     ports:
       - 9083:9083
     volumes:
@@ -42,6 +42,7 @@ services:
   hive-server:
     container_name: hive-server
     restart: on-failure
+    image: fredrikhgrelland/hive:${LAST_COMMIT_HASH}
     build:
       dockerfile: Dockerfile
       context: ..
